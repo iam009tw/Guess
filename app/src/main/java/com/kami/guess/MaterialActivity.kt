@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_main.ed_number
 import kotlinx.android.synthetic.main.content_material.*
 
 class MaterialActivity : AppCompatActivity() {
+    private val REQUEST_RECORD: Int = 100
     val secretNumber = com.kami.guess.secretNumber()
     val TAG : String = MaterialActivity::class.java.simpleName
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,16 +23,7 @@ class MaterialActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            AlertDialog.Builder(this)
-                .setTitle(getString(R.string.Reset_Game))
-                .setMessage(getString(R.string.Are_you_sure))
-                .setPositiveButton(getString(R.string.OK),{dialog, which ->
-                    secretNumber.reset()
-                    count_show.setText(secretNumber.count.toString())
-                    ed_number.setText("")
-                } )
-                .setNegativeButton(getString(R.string.cancel), null)
-                .show()
+            replyGame()
         }
         count_show.setText(secretNumber.count.toString())
         Log.d(TAG, "onCreate: " + secretNumber.secret)
@@ -40,6 +32,51 @@ class MaterialActivity : AppCompatActivity() {
         val nick = getSharedPreferences("guess", MODE_PRIVATE)
             .getString("nick", null)
         Log.d(TAG, "onCreate_share: nick=>" + nick + " count=>" + count)
+    }
+
+    private fun replyGame() {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.Reset_Game))
+            .setMessage(getString(R.string.Are_you_sure))
+            .setPositiveButton(getString(R.string.OK), { dialog, which ->
+                secretNumber.reset()
+                count_show.setText(secretNumber.count.toString())
+                ed_number.setText("")
+            })
+            .setNegativeButton(getString(R.string.cancel), null)
+            .show()
+    }
+
+    override fun onStart() {
+        super.onStart()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if ( requestCode == REQUEST_RECORD ){
+            if(resultCode == RESULT_OK){
+                val nickname = data?.getStringExtra("nick")
+                Log.d(TAG, "onActivityResult: " +  nickname)
+                replyGame()
+            }
+        }
+
     }
 
     fun check (view : View) {
@@ -61,7 +98,8 @@ class MaterialActivity : AppCompatActivity() {
                 if(diff == 0){
                     val intent = Intent(this, RecordActivity::class.java)
                         .putExtra("count", secretNumber.count)
-                    startActivity(intent)
+//                    startActivity(intent)
+                    startActivityForResult(intent, REQUEST_RECORD)
                 }
             })
             .show()

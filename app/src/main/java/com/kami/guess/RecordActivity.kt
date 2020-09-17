@@ -1,5 +1,6 @@
 package com.kami.guess
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -21,7 +22,10 @@ class RecordActivity : AppCompatActivity() {
                 .putInt("count", count)
                 .putString("nick", nick)
                 .commit()
+            var intent = Intent()
+            intent.putExtra("nick", nick)
+            setResult(RESULT_OK, intent)
+            finish()
         }
-
     }
 }
