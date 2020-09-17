@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">猜數字</string>
+    <string name="Yes_you_got_it">答對囉</string>
+    <string name="Bigger">大一點</string>
+    <string name="smaller">小一點</string>
+    <string name="AlertDialog_title">訊息</string>
+    <string name="OK">確定</string>
+    <string name="next">下一頁</string>
+    <string name="previous">上一頁</string>
+    <string name="title_activity_material">猜數字</string>
+    <string name="first_fragment_label">第一分頁</string>
+    <string name="second_fragment_label">第二分頁</string>
+    <string name="hello_first_fragment">哈囉,首頁</string>
+    <string name="hello_second_fragment">次頁. 平均: %1$s</string>
+    <string name="Reset_Game">重玩游錫</string>
+    <string name="Are_you_sure">你確定嗎?</string>
+    <string name="cancel">放棄</string>
+    <string name="please_input_a_nunber_1_10">請輸入1~10的數字</string>
+</resources>

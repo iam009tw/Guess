@@ -10,29 +10,29 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     val secretNumber = com.kami.guess.secretNumber()
-
+    val TAG : String = MainActivity::class.java.simpleName
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.d("MainActivity", "Secret Number :" + secretNumber.secret)
+        Log.d(TAG, "Secret Number :" + secretNumber.secret)
     }
 
     fun check (view : View) {
 
         val n : Int = ed_number.text.toString().toInt()
-//        Log.d("MainActivity", "number:" + n)
+//        Log.d(TAG, "number:" + n)
         val diff : Int = secretNumber.validate(n)
-        var message : String = "Yes, you got it!"
+        var message : String = getString(R.string.Yes_you_got_it)
         if(diff < 0){
-            message = "Bigger"
+            message = getString(R.string.Bigger)
         }else if(diff > 0){
-            message = "smaller"
+            message = getString(R.string.smaller)
         }
 //        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
          AlertDialog.Builder(this)
-             .setTitle("Message")
+             .setTitle(getString(R.string.AlertDialog_title))
              .setMessage(message)
-             .setPositiveButton("OK", null)
+             .setPositiveButton(getString(R.string.OK), null)
              .show()
     }
 }
